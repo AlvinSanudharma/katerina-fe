@@ -1,6 +1,7 @@
 import LogoKaterina from "@/assets/image/logo-katerina.svg";
 import FlagId from "@/assets/image/flag-id.svg";
 import Slider from "@/components/Slider";
+import Categories from "@/components/Categories";
 
 export default function Home() {
   return (
@@ -59,6 +60,7 @@ export default function Home() {
           </div>
         </Slider>
       </section>
+      <Categories />
     </>
   );
 }
