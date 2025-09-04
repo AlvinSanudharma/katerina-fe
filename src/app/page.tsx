@@ -2,6 +2,7 @@ import LogoKaterina from "@/assets/image/logo-katerina.svg";
 import FlagId from "@/assets/image/flag-id.svg";
 import Slider from "@/components/Slider";
 import Categories from "@/components/Categories";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -28,10 +29,11 @@ export default function Home() {
         >
           <div className="h-full rounded-3xl overflow-hidden relative border">
             <figure className="w-full h-full absolute">
-              <img
+              <Image
+                fill
                 className="w-full h-full object-cover object-center"
-                src="/images/slide1.png"
-                alt=""
+                src={`/images/slide1.png`}
+                alt="slide sale 1"
               />
             </figure>
             <div className="absolute inset-0 bg-gradient-to-r from-black to-black/0"></div>
@@ -44,10 +46,11 @@ export default function Home() {
           </div>
           <div className="h-full rounded-3xl overflow-hidden relative border">
             <figure className="w-full h-full absolute">
-              <img
+              <Image
+                fill
                 className="w-full h-full object-cover object-center"
-                src="/images/slide1.png"
-                alt=""
+                src={`/images/slide1.png`}
+                alt="slide sale 1"
               />
             </figure>
             <div className="absolute inset-0 bg-gradient-to-r from-black to-black/0"></div>

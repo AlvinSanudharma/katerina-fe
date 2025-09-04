@@ -33,19 +33,6 @@ async function Categories({}: Props) {
     <section className="px-4">
       <h2 className="font-semibold mb-4">Browse Category</h2>
       <div className="grid grid-cols-4 gap-4">
-        {/* Skeleton */}
-        {/* {new Array(8).fill({}).map((_) => {
-          return (
-            <div className="flex flex-col items-center gap-y-2 relative">
-              <figure className="w-16 aspect-square relative">
-                <div className="bg-gray-100 w-full h-full rounded-full"></div>
-              </figure>
-              <div className="w-14 h-3 bg-gray-100 rounded-md"></div>
-              <a href="categories.html" className="absolute inset-0"></a>
-            </div>
-          );
-        })} */}
-
         {data.map((category) => (
           <ContentCategory key={category.id} data={category} />
         ))}
