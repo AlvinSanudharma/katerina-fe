@@ -1,6 +1,6 @@
-export async function getAllCategories() {
+export async function getPackages() {
   try {
-    const res = await fetch(`${process.env.HOST_API}/api/categories`, {
+    const res = await fetch(`${process.env.HOST_API}/api/catering-packages`, {
       method: "GET",
       cache: "no-cache",
     });
