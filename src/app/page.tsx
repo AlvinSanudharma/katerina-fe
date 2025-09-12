@@ -69,6 +69,10 @@ export default function Home() {
         <h2 className="font-semibold mb-4 px-4">Most People Love It</h2>
         <Packages show="popular" />
       </section>
+      <section className="relative">
+        <h2 className="font-semibold mb-4 px-4">Fresh From Kitchen</h2>
+        <Packages show="newest" />
+      </section>
     </>
   );
 }
