@@ -4,6 +4,7 @@ import Slider from "@/components/Slider";
 import Categories from "@/components/Categories";
 import Image from "next/image";
 import Packages from "@/components/Packages";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
@@ -68,6 +69,10 @@ export default function Home() {
       <section className="relative">
         <h2 className="font-semibold mb-4 px-4">Most People Love It</h2>
         <Packages show="popular" />
+      </section>
+      <section className="relative">
+        <h2 className="font-semibold mb-4 px-4">Most People Love It</h2>
+        <Testimonials />
       </section>
       <section className="relative">
         <h2 className="font-semibold mb-4 px-4">Fresh From Kitchen</h2>

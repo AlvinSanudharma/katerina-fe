@@ -11,27 +11,6 @@ type Props = {
   show: TShow;
 };
 
-// export function ContentCategory({ data }: { data: TCategory }) {
-//   return (
-//     <div className="flex flex-col items-center gap-y-2 relative">
-//       <figure className="w-16 aspect-square relative">
-//         <Image
-//           fill
-//           className="w-full h-full object-cover object-center"
-//           src={`${process.env.HOST_API}/${data.photo}`}
-//           alt={data.name}
-//           sizes="(max-width: 768px) 100vw"
-//         />
-//       </figure>
-//       <span className="">{data.name}</span>
-//       <Link
-//         href={`/categories/${data.slug}`}
-//         className="absolute inset-0"
-//       ></Link>
-//     </div>
-//   );
-// }
-
 export function ContentPopular({ data }: { data: TPackage[] }) {
   if (data.length === 0) return "Tidak ada data";
 
@@ -106,13 +85,8 @@ export function ContentNewest({
           : null;
 
         return (
-          <div className="flex gap-x-3">
+          <div className="flex gap-x-3" key={item.id}>
             <figure className="w-[120px] h-[160px] flex-none rounded-2xl overflow-hidden relative">
-              {/* <img
-                className="w-full h-full object-cover object-center"
-                src="/images/fresh1.png"
-                alt=""
-              /> */}
               <Image
                 fill
                 className="w-full h-full object-cover object-center"
