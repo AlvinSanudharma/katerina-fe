@@ -56,7 +56,7 @@ export function OpenModal({
   modal,
   modalPosition,
 }: {
-  modal: TModalPosRegistered;
+  modal: TModalRegistered;
   modalPosition?: TModalPosRegistered;
   queries: {
     [key: string]: string;
