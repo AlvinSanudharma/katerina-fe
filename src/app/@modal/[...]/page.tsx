@@ -1,3 +1,4 @@
+import ModalFilterCategories from "@/components/Categories/ModalFilterCategories";
 import {
   PreventScrolling,
   RouterBack,
@@ -31,12 +32,15 @@ function page({ searchParams }: Request) {
         <div
           id="modal"
           className={[
-            "hidden fixed inset-0 z-50 bg-color4/80 items-center justify-center",
+            "fixed inset-0 z-50 bg-color4/80 flex justify-center",
             modalPosition,
           ].join(" ")}
         >
           <div className={modalWrapper}>
             {/* Render semua konten disini, contoh capture dulu if(modal === "siapa") {maka render disini} */}
+            {searchParams.modal === "filter-category" && (
+              <ModalFilterCategories categorySlug={searchParams.categorySlug} />
+            )}
           </div>
           <RouterBack />
         </div>

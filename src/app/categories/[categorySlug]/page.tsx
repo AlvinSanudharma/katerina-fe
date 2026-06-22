@@ -3,7 +3,7 @@ import { TCategory } from "@/components/Categories/types";
 import ComposeHeader from "./ComposeHeader";
 import Image from "next/image";
 import People from "@/assets/image/people.svg";
-import "@/libs/thousands/";
+import "@/libs/thousands";
 import { ContentNewest, ContentPopular } from "@/components/Packages";
 import { OpenModal } from "@/components/Modal";
 
@@ -15,7 +15,7 @@ type Request = {
 
 async function PageCategoriesDetail({ params }: Request) {
   const { data }: { data: TCategory } = await getCategoryDetail(
-    params.categorySlug
+    params.categorySlug,
   );
 
   return (
@@ -27,7 +27,7 @@ async function PageCategoriesDetail({ params }: Request) {
             <figure className="relative w-[100px] h-[120px] rounded-2xl overflow-hidden">
               <Image
                 fill
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center scale-125"
                 src={`${process.env.HOST_API}/${data.photo}`}
                 alt={data.name}
                 sizes="(max-width: 768px) 100vw"
