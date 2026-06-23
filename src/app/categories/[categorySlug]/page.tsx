@@ -6,17 +6,34 @@ import People from "@/assets/image/people.svg";
 import "@/libs/thousands";
 import { ContentNewest, ContentPopular } from "@/components/Packages";
 import { OpenModal } from "@/components/Modal";
+import { getFilterPackagesByCityAndCategory } from "@/components/Packages/actions";
+import { TPackage } from "@/components/Packages/types";
 
 type Request = {
   params: {
     categorySlug: string;
   };
+  searchParams: {
+    citySlug: string;
+  };
 };
 
-async function PageCategoriesDetail({ params }: Request) {
-  const { data }: { data: TCategory } = await getCategoryDetail(
+async function PageCategoriesDetail({ params, searchParams }: Request) {
+  const categories: { data: TCategory } = await getCategoryDetail(
     params.categorySlug,
   );
+
+  let catering_packages = categories.data.catering_packages;
+
+  if (searchParams.citySlug && searchParams.citySlug !== "") {
+    const filtered: { data: TPackage[] } =
+      await getFilterPackagesByCityAndCategory(
+        searchParams.citySlug,
+        params.categorySlug,
+      );
+
+    catering_packages = filtered.data;
+  }
 
   return (
     <>
@@ -28,21 +45,21 @@ async function PageCategoriesDetail({ params }: Request) {
               <Image
                 fill
                 className="w-full h-full object-cover object-center scale-125"
-                src={`${process.env.HOST_API}/${data.photo}`}
-                alt={data.name}
+                src={`${process.env.HOST_API}/${categories.data.photo}`}
+                alt={categories.data.name}
                 sizes="(max-width: 768px) 100vw"
               />
             </figure>
             <span className="flex flex-col gap-y-3">
-              <span className="font-semibold">{data.name}</span>
+              <span className="font-semibold">{categories.data.name}</span>
 
               <span className="flex gap-x-1">
                 <span className="text-color2">
                   <People />
                 </span>
                 <span className="text-gray2">
-                  {data.catering_packages_count.thousands()}{" "}
-                  {`Package${data.catering_packages_count > 1 ? "s" : ""}`}
+                  {catering_packages.length.thousands()}{" "}
+                  {`Package${catering_packages.length > 1 ? "s" : ""}`}
                 </span>
               </span>
             </span>
@@ -52,12 +69,12 @@ async function PageCategoriesDetail({ params }: Request) {
       <section className="relative">
         <h2 className="font-semibold mb-4 px-4">Most People Love It</h2>
         <ContentPopular
-          data={data.catering_packages.filter((item) => item.is_popular === 1)}
+          data={catering_packages.filter((item) => item.is_popular === 1)}
         />
       </section>
       <section className="relative">
         <h2 className="font-semibold mb-4 px-4">Fresh From Kitchen</h2>
-        <ContentNewest data={data.catering_packages} />
+        <ContentNewest data={catering_packages} />
       </section>
       <div className="sticky bottom-4 mt-36 px-4 z-50 flex justify-center">
         <OpenModal
