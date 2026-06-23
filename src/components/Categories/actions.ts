@@ -47,5 +47,5 @@ export function navigateFilterCategories(prevState: any, formData: FormData) {
     };
   }
 
-  return redirect(`/categories/${category}?citySlub=${city}`);
+  return redirect(`/categories/${category}?citySlug=${city}`);
 }
