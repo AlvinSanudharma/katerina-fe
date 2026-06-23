@@ -7,11 +7,17 @@ import { navigateFilterCategories } from "@/components/Categories/actions";
 
 type Props = {
   categorySlug: string;
+  citySlug: string;
   categories: TCategory[];
   cities: TCity[];
 };
 
-function FormFilterCategories({ categorySlug, categories, cities }: Props) {
+function FormFilterCategories({
+  categorySlug,
+  citySlug,
+  categories,
+  cities,
+}: Props) {
   const [, formAction] = useFormState(navigateFilterCategories, {
     message: "",
     field: "",
@@ -58,6 +64,7 @@ function FormFilterCategories({ categorySlug, categories, cities }: Props) {
                 id={`${city.id}-${city.slug}`}
                 className="hidden peer"
                 defaultValue={city.slug}
+                defaultChecked={citySlug === city.slug}
               />
               <span className="radio p-1 rounded-full border border-color2 w-6 aspect-square peer-checked:[&>span]:opacity-100">
                 <span className="aspect-square h-full block rounded-full opacity-0 bg-color2 transition-all duration-300"></span>

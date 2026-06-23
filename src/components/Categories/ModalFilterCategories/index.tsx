@@ -7,9 +7,10 @@ import FormFilterCategories from "./Form";
 
 type Props = {
   categorySlug: string;
+  citySlug: string;
 };
 
-async function ModalFilterCategories({ categorySlug }: Props) {
+async function ModalFilterCategories({ categorySlug, citySlug }: Props) {
   const { data: categories }: { data: TCategory[] } = await getAllCategories();
   const { data: cities }: { data: TCity[] } = await getAllCities();
 
@@ -18,6 +19,7 @@ async function ModalFilterCategories({ categorySlug }: Props) {
       categories={categories}
       cities={cities}
       categorySlug={categorySlug}
+      citySlug={citySlug}
     />
   );
 }

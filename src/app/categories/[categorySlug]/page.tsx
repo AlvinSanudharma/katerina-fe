@@ -78,7 +78,10 @@ async function PageCategoriesDetail({ params, searchParams }: Request) {
       </section>
       <div className="sticky bottom-4 mt-36 px-4 z-50 flex justify-center">
         <OpenModal
-          queries={{ categorySlug: params.categorySlug }}
+          queries={{
+            categorySlug: params.categorySlug,
+            citySlug: searchParams.citySlug,
+          }}
           modal="filter-category"
           modalPosition="bottom"
           className="bg-white border border-gray1 shadow-[0px_12px_30px_0px_#07041517] px-3 py-2 font-semibold text-sm rounded-full"

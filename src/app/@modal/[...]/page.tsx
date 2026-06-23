@@ -39,7 +39,10 @@ function page({ searchParams }: Request) {
           <div className={modalWrapper}>
             {/* Render semua konten disini, contoh capture dulu if(modal === "siapa") {maka render disini} */}
             {searchParams.modal === "filter-category" && (
-              <ModalFilterCategories categorySlug={searchParams.categorySlug} />
+              <ModalFilterCategories
+                categorySlug={searchParams.categorySlug}
+                citySlug={searchParams.citySlug}
+              />
             )}
           </div>
           <RouterBack />
