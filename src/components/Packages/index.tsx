@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function ContentPopular({ data }: { data: TPackage[] }) {
-  if (data.length === 0) return "Tidak ada data";
+  if (data.length === 0) return <p className="text-center">Tidak ada data</p>;
 
   return (
     <Slider
@@ -69,18 +69,20 @@ export function ContentNewest({
   data: TPackage[];
   withTierDetailsQuantity?: boolean;
 }) {
+  if (data.length === 0) return <p className="text-center">Tidak ada data</p>;
+
   return (
     <div className="flex flex-col gap-y-4 px-4">
       {data.map((item) => {
         const lowestTier = item.tiers.length
           ? item.tiers.reduce((min, current) =>
-              current.price < min.price ? current : min
+              current.price < min.price ? current : min,
             )
           : null;
 
         const highestTier = item.tiers.length
           ? item.tiers.reduce((max, current) =>
-              current.price < max.price ? current : max
+              current.price < max.price ? current : max,
             )
           : null;
 
