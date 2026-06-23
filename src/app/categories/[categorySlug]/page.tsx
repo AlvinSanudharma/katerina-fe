@@ -8,6 +8,7 @@ import { ContentNewest, ContentPopular } from "@/components/Packages";
 import { OpenModal } from "@/components/Modal";
 import { getFilterPackagesByCityAndCategory } from "@/components/Packages/actions";
 import { TPackage } from "@/components/Packages/types";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Request = {
   params: {
@@ -18,7 +19,20 @@ type Request = {
   };
 };
 
-async function PageCategoriesDetail({ params, searchParams }: Request) {
+export async function generateMetadata(
+  { params }: Request,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const categories: { data: TCategory } = await getCategoryDetail(
+    params.categorySlug,
+  );
+
+  return {
+    title: `Category ${categories.data.name}`,
+  };
+}
+
+async function PageCategoriesDetails({ params, searchParams }: Request) {
   const categories: { data: TCategory } = await getCategoryDetail(
     params.categorySlug,
   );
@@ -93,4 +107,4 @@ async function PageCategoriesDetail({ params, searchParams }: Request) {
   );
 }
 
-export default PageCategoriesDetail;
+export default PageCategoriesDetails;
