@@ -11,6 +11,22 @@ export async function getPackages() {
   }
 }
 
+export async function getPackageDetails(packageSlug: string) {
+  try {
+    const res = await fetch(
+      `${process.env.HOST_API}/api/catering-package/${packageSlug}`,
+      {
+        method: "GET",
+        cache: "no-cache",
+      },
+    );
+
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getFilterPackagesByCityAndCategory(
   citySlug: string,
   categorySlug: string,
