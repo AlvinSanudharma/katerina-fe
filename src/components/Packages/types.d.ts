@@ -2,6 +2,7 @@ import { TCategory } from "@/components/Categories/types";
 import { TCity } from "@/components/Cities/types";
 import { TTier } from "@/components/Tiers/types";
 import { TKitchen } from "@/components/Kitchen/types";
+import { TTestimonial } from "../Testimonials/types";
 
 export type TShow = "popular" | "newest";
 
@@ -17,3 +18,16 @@ export type TPackage = {
   kitchen: TKitchen;
   tiers: TTier[];
 };
+
+export type TPackageDetails = {
+  photos: {
+    id: number;
+    photo: string;
+    catering_package_id: number;
+    deleted_at: null | string;
+    created_at: null | string;
+    deleted_at: null | string;
+  }[];
+  bonuses: [];
+  testimonials: TTestimonial[];
+} & TPackage;
