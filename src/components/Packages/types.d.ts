@@ -2,7 +2,8 @@ import { TCategory } from "@/components/Categories/types";
 import { TCity } from "@/components/Cities/types";
 import { TTier } from "@/components/Tiers/types";
 import { TKitchen } from "@/components/Kitchen/types";
-import { TTestimonial } from "../Testimonials/types";
+import { TTestimonial } from "@/components/Testimonials/types";
+import { TBonus } from "@/components/Bonuses/types";
 
 export type TShow = "popular" | "newest";
 
@@ -28,6 +29,6 @@ export type TPackageDetails = {
     created_at: null | string;
     deleted_at: null | string;
   }[];
-  bonuses: [];
+  bonuses: TBonus[];
   testimonials: TTestimonial[];
 } & TPackage;
