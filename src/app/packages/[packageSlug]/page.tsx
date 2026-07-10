@@ -169,18 +169,22 @@ async function PackageDetailsPage({ params }: Request) {
       </section>
       <section className="relative">
         <h2 className="font-semibold mb-3 px-4">Testimonials</h2>
-        <Slider
-          spaceBetween={20}
-          hasPagination
-          swiperClassName="!h-[156px] !px-4"
-          swiperSliderClassName="!w-[280px]"
-        >
-          {cateringPackage.data.testimonials.map((testimonial) => {
-            return (
-              <ContentTestimonial data={testimonial} key={testimonial.id} />
-            );
-          })}
-        </Slider>
+        {cateringPackage.data.testimonials.length > 0 ? (
+          <Slider
+            spaceBetween={20}
+            hasPagination
+            swiperClassName="!h-[156px] !px-4"
+            swiperSliderClassName="!w-[280px]"
+          >
+            {cateringPackage.data.testimonials.map((testimonial) => {
+              return (
+                <ContentTestimonial data={testimonial} key={testimonial.id} />
+              );
+            })}
+          </Slider>
+        ) : (
+          <p className="text-center">Tidak ada data</p>
+        )}
       </section>
       <section className="relative">
         <h2 className="font-semibold mb-3 px-4">Kitchen</h2>
