@@ -92,7 +92,7 @@ export function ContentNewest({
 
         const highestTier = item.tiers.length
           ? item.tiers.reduce((max, current) =>
-              current.price < max.price ? current : max,
+              current.price > max.price ? current : max,
             )
           : null;
 
