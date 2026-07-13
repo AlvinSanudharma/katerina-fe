@@ -9,9 +9,11 @@ import Link from "next/link";
 export function ContentTier({
   data,
   packageSlug,
+  isPriceShown,
 }: {
   packageSlug: string;
   data: TTier;
+  isPriceShown?: boolean;
 }) {
   return (
     <div className="flex flex-col gap-y-3 h-full p-4 rounded-3xl relative border">
@@ -46,32 +48,37 @@ export function ContentTier({
         })}
       </ul>
 
-      <hr />
+      {!!isPriceShown && (
+        <>
+          <hr />
 
-      <span className="flex flex-col gap-y-2">
-        <span className="font-semibold text-xl">
-          Rp {data.price.thousands()}
-        </span>
-        <span className="flex gap-x-3">
-          <span className="flex gap-x-1">
-            <span className="text-color2">
-              <Clock />
+          <span className="flex flex-col gap-y-2">
+            <span className="font-semibold text-xl">
+              Rp {data.price.thousands()}
             </span>
-            <span className="text-gray2">
-              {`${data.duration} day${data.duration > 1 ? "s" : ""}`}
+            <span className="flex gap-x-3">
+              <span className="flex gap-x-1">
+                <span className="text-color2">
+                  <Clock />
+                </span>
+                <span className="text-gray2">
+                  {`${data.duration} day${data.duration > 1 ? "s" : ""}`}
+                </span>
+              </span>
+
+              <span className="flex gap-x-1">
+                <span className="text-color2">
+                  <People />
+                </span>
+                <span className="text-gray2">{data.quantity} orang</span>
+              </span>
             </span>
           </span>
 
-          <span className="flex gap-x-1">
-            <span className="text-color2">
-              <People />
-            </span>
-            <span className="text-gray2">{data.quantity} orang</span>
-          </span>
-        </span>
-      </span>
+          <hr />
+        </>
+      )}
 
-      <hr />
       <Link
         href={`/packages/${packageSlug}/informations?tier=${data.id}`}
         className="flex py-3 border border-gray1 rounded-full font-semibold justify-center hover:bg-color1 hover:text-white hover:border-transparent"

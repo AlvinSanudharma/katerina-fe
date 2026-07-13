@@ -90,6 +90,7 @@ async function PackageTiersPage({ params }: Request) {
                 data={tier}
                 packageSlug={params.packageSlug}
                 key={tier.id}
+                isPriceShown
               />
             );
           })}

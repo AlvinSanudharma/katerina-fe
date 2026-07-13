@@ -5,6 +5,7 @@ import {
   TModalPosRegistered,
   TModalRegistered,
 } from "@/components/Modal";
+import ModalDetailTier from "@/components/Tiers/ModalDetailTier";
 import React from "react";
 
 type Request = {
@@ -42,6 +43,12 @@ function page({ searchParams }: Request) {
               <ModalFilterCategories
                 categorySlug={searchParams.categorySlug}
                 citySlug={searchParams.citySlug}
+              />
+            )}
+            {searchParams.modal === "tier" && (
+              <ModalDetailTier
+                packageSlug={searchParams.packageSlug}
+                tierId={searchParams.tierId}
               />
             )}
           </div>
