@@ -3,7 +3,6 @@ import { TCategory } from "@/components/Categories/types";
 import ComposeHeader from "./ComposeHeader";
 import Image from "next/image";
 import People from "@/assets/image/people.svg";
-import "@/libs/thousands";
 import { ContentNewest, ContentPopular } from "@/components/Packages";
 import { OpenModal } from "@/components/Modal";
 import { getFilterPackagesByCityAndCategory } from "@/components/Packages/actions";

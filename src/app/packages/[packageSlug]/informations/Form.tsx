@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import ArrowCircleDown from "@/assets/image/arrow-circle-down.svg";
 import User from "@/assets/image/user.svg";
 import Envelope from "@/assets/image/envelope.svg";
@@ -15,6 +15,8 @@ import { TPackageDetails } from "@/components/Packages/types";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useFormState } from "react-dom";
 import { submitInformation } from "@/components/Packages/actions";
+import "@/libs/thousands";
+import { useRouter } from "next/navigation";
 
 type Props = {
   data: TPackageDetails;
@@ -36,6 +38,8 @@ function Form({ data, tierId }: Props) {
     {},
   );
 
+  const router = useRouter();
+
   const currentTier = data.tiers.find((tier) => String(tier.id) === tierId);
 
   const tax = (currentTier?.price || 0) * 0.11;
@@ -43,10 +47,11 @@ function Form({ data, tierId }: Props) {
 
   const [state, formAction] = useFormState(submitInformation, initialState);
 
+  const fieldRefs = useRef<Record<string, HTMLInputElement | null>>({});
+
   useEffect(() => {
     if (!!state.field && state.field !== "") {
-      const element = document.getElementById(state.field)!;
-      element.focus();
+      fieldRefs.current[state.field]?.focus();
     } else if (state.data) {
       checkoutSet((prev) => ({
         ...prev,
@@ -55,6 +60,8 @@ function Form({ data, tierId }: Props) {
           ...state.data,
         },
       }));
+
+      router.push(`/packages/${data.slug}/shipping?tier=${tierId}`);
     }
   }, [state]);
 
@@ -92,6 +99,10 @@ function Form({ data, tierId }: Props) {
                 name="name"
                 id="name"
                 placeholder="Full Name"
+                ref={(el) => {
+                  fieldRefs.current.name = el;
+                }}
+                defaultValue={checkout[data.slug]?.name ?? ""}
               />
               <label
                 htmlFor="name"
@@ -111,6 +122,10 @@ function Form({ data, tierId }: Props) {
                 name="email"
                 id="email"
                 placeholder="Email"
+                ref={(el) => {
+                  fieldRefs.current.email = el;
+                }}
+                defaultValue={checkout[data.slug]?.email ?? ""}
               />
               <label
                 htmlFor="email"
@@ -130,6 +145,10 @@ function Form({ data, tierId }: Props) {
                 name="phone"
                 id="phone"
                 placeholder="Phone"
+                ref={(el) => {
+                  fieldRefs.current.phone = el;
+                }}
+                defaultValue={checkout[data.slug]?.phone ?? ""}
               />
               <label
                 htmlFor="phone"
@@ -149,6 +168,10 @@ function Form({ data, tierId }: Props) {
                 name="started_at"
                 id="started_at"
                 placeholder="Start At"
+                ref={(el) => {
+                  fieldRefs.current.started_at = el;
+                }}
+                defaultValue={checkout[data.slug]?.startedAt ?? ""}
               />
               <label
                 htmlFor="started_at"
@@ -184,7 +207,9 @@ function Form({ data, tierId }: Props) {
               </span>
               <div className="pl-12 flex flex-col w-full justify-center pr-4 h-[69px] rounded-2xl bg-gray3">
                 <span className="text-sm text-gray2">Paket Catering</span>
-                <span className="font-semibold">Rp 189.309.499</span>
+                <span className="font-semibold">
+                  Rp {(currentTier?.price || 0).thousands()}
+                </span>
               </div>
             </div>
 
@@ -194,7 +219,10 @@ function Form({ data, tierId }: Props) {
               </span>
               <div className="pl-12 flex flex-col w-full justify-center pr-4 h-[69px] rounded-2xl bg-gray3">
                 <span className="text-sm text-gray2">Duration</span>
-                <span className="font-semibold">30 Days Regularly</span>
+                <span className="font-semibold">
+                  {`${currentTier?.duration || 0} Day${(currentTier?.duration || 0) > 1 && "s"}`}{" "}
+                  Regularly
+                </span>
               </div>
             </div>
 
@@ -204,7 +232,9 @@ function Form({ data, tierId }: Props) {
               </span>
               <div className="pl-12 flex flex-col w-full justify-center pr-4 h-[69px] rounded-2xl bg-gray3">
                 <span className="text-sm text-gray2">Quantity</span>
-                <span className="font-semibold">125 People</span>
+                <span className="font-semibold">
+                  {(currentTier?.quantity || 0).thousands()} People
+                </span>
               </div>
             </div>
 
@@ -224,7 +254,7 @@ function Form({ data, tierId }: Props) {
               </span>
               <div className="pl-12 flex flex-col w-full justify-center pr-4 h-[69px] rounded-2xl bg-gray3">
                 <span className="text-sm text-gray2">PPN 11%</span>
-                <span className="font-semibold">Rp 83.495.666</span>
+                <span className="font-semibold">Rp {tax.thousands()}</span>
               </div>
             </div>
           </div>
@@ -234,7 +264,9 @@ function Form({ data, tierId }: Props) {
           <div className="rounded-full flex justify-between gap-x-3 bg-white shadow-[0px_12px_30px_0px_#07041517] p-3 pl-6">
             <span className="flex flex-col">
               <span className="text-gray2 text-sm">Grand Total</span>
-              <span className="font-semibold text-xl">Rp 57.394.233</span>
+              <span className="font-semibold text-xl">
+                Rp {grandTotal.thousands()}
+              </span>
             </span>
             <button
               type="submit"
