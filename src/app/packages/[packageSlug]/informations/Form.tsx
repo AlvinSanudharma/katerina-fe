@@ -43,7 +43,7 @@ function Form({ data, tierId }: Props) {
   const currentTier = data.tiers.find((tier) => String(tier.id) === tierId);
 
   const tax = (currentTier?.price || 0) * 0.11;
-  const grandTotal = (currentTier?.price || 0) * tax;
+  const grandTotal = (currentTier?.price || 0) + tax;
 
   const [state, formAction] = useFormState(submitInformation, initialState);
 
