@@ -12,6 +12,7 @@ import People from "@/assets/image/people.svg";
 import Truck from "@/assets/image/truck.svg";
 import Tax from "@/assets/image/tax.svg";
 import { TPackageDetails } from "@/components/Packages/types";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 type Props = {
   data: TPackageDetails;
@@ -19,6 +20,11 @@ type Props = {
 };
 
 function Form({ data, tierId }: Props) {
+  const [checkout, checkoutSet] = useLocalStorage<{ [key: string]: any }>(
+    "checkout",
+    {},
+  );
+
   return (
     <form action="">
       <div className="flex flex-col gap-y-7 px-4">
