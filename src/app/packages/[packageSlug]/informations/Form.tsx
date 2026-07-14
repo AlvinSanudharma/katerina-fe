@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ArrowCircleDown from "@/assets/image/arrow-circle-down.svg";
 import User from "@/assets/image/user.svg";
 import Envelope from "@/assets/image/envelope.svg";
@@ -13,10 +13,21 @@ import Truck from "@/assets/image/truck.svg";
 import Tax from "@/assets/image/tax.svg";
 import { TPackageDetails } from "@/components/Packages/types";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { useFormState } from "react-dom";
+import { submitInformation } from "@/components/Packages/actions";
 
 type Props = {
   data: TPackageDetails;
   tierId: string;
+};
+
+const initialState: {
+  message: string;
+  field: string;
+  data?: any;
+} = {
+  message: "",
+  field: "",
 };
 
 function Form({ data, tierId }: Props) {
@@ -25,8 +36,33 @@ function Form({ data, tierId }: Props) {
     {},
   );
 
+  const currentTier = data.tiers.find((tier) => String(tier.id) === tierId);
+
+  const tax = (currentTier?.price || 0) * 0.11;
+  const grandTotal = (currentTier?.price || 0) * tax;
+
+  const [state, formAction] = useFormState(submitInformation, initialState);
+
+  useEffect(() => {
+    if (!!state.field && state.field !== "") {
+      const element = document.getElementById(state.field)!;
+      element.focus();
+    } else if (state.data) {
+      checkoutSet((prev) => ({
+        ...prev,
+        [state.data.slug]: {
+          ...prev[state.data.slug],
+          ...state.data,
+        },
+      }));
+    }
+  }, [state]);
+
   return (
-    <form action="">
+    <form action={formAction}>
+      <input type="hidden" value={data.slug} name="slug" />
+      <input type="hidden" value={data.id} name="catering_package_id" />
+      <input type="hidden" value={tierId} name="catering_tier_id" />
       <div className="flex flex-col gap-y-7 px-4">
         <div className="flex flex-col bg-white border border-gray1 rounded-2xl p-4">
           <input
@@ -34,7 +70,7 @@ function Form({ data, tierId }: Props) {
             name="accordion"
             id="customer-information"
             className="peer hidden"
-            checked
+            defaultChecked
           />
           <label
             htmlFor="customer-information"
@@ -53,12 +89,12 @@ function Form({ data, tierId }: Props) {
               <input
                 type="text"
                 className="pl-12 w-full pt-4 pr-4 border border-light3 h-[69px] focus:outline-none focus:border-color2 rounded-2xl peer placeholder:opacity-0 placeholder-shown:pt-0 font-semibold"
-                name="fullname"
-                id="fullname"
+                name="name"
+                id="name"
                 placeholder="Full Name"
               />
               <label
-                htmlFor="fullname"
+                htmlFor="name"
                 className="absolute pointer-events-none text-gray2 inset-0 flex items-center ml-12 peer-placeholder-shown:mb-0 mb-8 peer-placeholder-shown:text-base text-sm transition-all duration-300"
               >
                 Full Name
@@ -110,12 +146,12 @@ function Form({ data, tierId }: Props) {
               <input
                 type="date"
                 className="pl-12 w-full pt-4 pr-4 border border-light3 h-[69px] focus:outline-none focus:border-color2 rounded-2xl peer placeholder:opacity-0 placeholder-shown:pt-0 font-semibold appearance-none"
-                name="start_at"
-                id="start_at"
+                name="started_at"
+                id="started_at"
                 placeholder="Start At"
               />
               <label
-                htmlFor="start_at"
+                htmlFor="started_at"
                 className="absolute pointer-events-none text-gray2 inset-0 flex items-center ml-12 peer-placeholder-shown:mb-0 mb-8 peer-placeholder-shown:text-base text-sm transition-all duration-300"
               >
                 Start At
@@ -130,7 +166,7 @@ function Form({ data, tierId }: Props) {
             name="accordion"
             id="payment-details"
             className="peer hidden"
-            checked
+            defaultChecked
           />
           <label
             htmlFor="payment-details"
