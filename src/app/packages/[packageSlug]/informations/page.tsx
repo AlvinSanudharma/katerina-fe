@@ -8,6 +8,7 @@ import Notes from "@/assets/image/notes.svg";
 import People from "@/assets/image/people.svg";
 import { ContentTier } from "@/components/Tiers";
 import { OpenModal } from "@/components/Modal";
+import Form from "./Form";
 
 type Request = {
   params: {
@@ -122,6 +123,7 @@ async function PackageTiersPage({ params, searchParams }: Request) {
           )}
         </div>
       </section>
+      <Form data={cateringPackage.data} tierId={searchParams.tier} />
     </>
   );
 }
