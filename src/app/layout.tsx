@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 
 import "@/assets/css/index.css";
 import "@/libs/thousands";
+import { ToastContainer } from "react-toastify";
 
 const poppins = Poppins({
   weight: ["400", "600", "700"],
@@ -32,6 +33,7 @@ export default function RootLayout({
           {children}
         </main>
         {modal}
+        <ToastContainer position="top-center" />
       </body>
     </html>
   );

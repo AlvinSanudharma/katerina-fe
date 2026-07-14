@@ -80,7 +80,7 @@ export async function submitInformation(prevState: any, formData: FormData) {
 
   if (startedAt === "") {
     return {
-      message: "Please choose date",
+      message: "Start at is required",
       field: "started_at",
     };
   }

@@ -17,6 +17,7 @@ import { useFormState } from "react-dom";
 import { submitInformation } from "@/components/Packages/actions";
 import "@/libs/thousands";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type Props = {
   data: TPackageDetails;
@@ -51,6 +52,10 @@ function Form({ data, tierId }: Props) {
 
   useEffect(() => {
     if (!!state.field && state.field !== "") {
+      if (state.message.includes("required")) {
+        toast.error(state.message);
+      }
+
       fieldRefs.current[state.field]?.focus();
     } else if (state.data) {
       checkoutSet((prev) => ({
@@ -220,7 +225,9 @@ function Form({ data, tierId }: Props) {
               <div className="pl-12 flex flex-col w-full justify-center pr-4 h-[69px] rounded-2xl bg-gray3">
                 <span className="text-sm text-gray2">Duration</span>
                 <span className="font-semibold">
-                  {`${currentTier?.duration || 0} Day${(currentTier?.duration || 0) > 1 && "s"}`}{" "}
+                  {`${currentTier?.duration || 0} Day${
+                    (currentTier?.duration || 0) > 1 ? "s" : ""
+                  }`}{" "}
                   Regularly
                 </span>
               </div>

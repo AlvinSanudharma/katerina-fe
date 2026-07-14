@@ -229,7 +229,7 @@ async function PackageDetailsPage({ params }: Request) {
               Rp {(currentTier?.price || 0).thousands()}
             </span>
             <span className="text-gray2 text-sm">
-              {`${currentTier?.duration || 0} day${(currentTier?.duration || 0) > 1 && "s"}`}{" "}
+              {`${currentTier?.duration || 0} Day${(currentTier?.duration || 0) > 1 ? "s" : ""}`}{" "}
               , {currentTier?.quantity || 0} people
             </span>
           </span>
